@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@layer base {
+  body {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    color: #000;
+  }
+
+  h2 {
+    @apply text-primary text-[40px] font-bold;
+  }
+
+  p {
+    @apply text-lightBlack text-base font-normal;
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .pagination-item {
+    margin: 0 5px;
+  }
+
+  .pagination-link {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #adb5bd;
+    background-color: transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .pagination-link:hover {
+    background-color: transparent;
+  }
+
+  .pagination-link.active {
+    background-color: #8c5e2d;
+    color: #fff;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply flex items-center justify-center gap-2;
+  }
+
+  .btn-primary {
+    @apply px-9 py-4 bg-primary text-white font-semibold rounded-lg drop-shadow-[4px_4px_0_#000] hover:drop-shadow-[0_0_0_#000] hover:bg-primary_hover transition-all duration-300;
+  }
+
+  .btn-search {
+    @apply py-2.5 px-5 bg-primary text-white font-semibold gap-1 rounded-[0_8px_8px_0];
+  }
+
+  .btn-scan {
+    @apply py-2.5 px-6 border-2 border-primary rounded-lg text-primary font-semibold;
+  }
+
+  .btn-icon {
+    @apply p-1 bg-primary hover:bg-primary_hover border-2 font-semibold gap-1 rounded-lg text-white transition-all duration-300 overflow-hidden;
+  }
+
+  .btn-arrow {
+    @apply bg-[#DEE2E6] hover:bg-primary p-2 rounded transition-all duration-300;
+  }
+
+  .btn-arrow:hover svg path {
+    @apply stroke-white transition-all duration-300;
+  }
+
+  .btn-link {
+    @apply gap-3 text-primary py-3 hover:gap-4 transition-all duration-300;
+  }
+
+  .footer-link {
+    @apply text-whiteText font-medium text-base hover:text-primary transition-all duration-300;
+  }
+  .navbar-link {
+    @apply text-smallBlack font-medium text-base hover:text-primary transition-all duration-300;
+  }
+}
