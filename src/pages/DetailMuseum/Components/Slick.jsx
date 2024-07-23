@@ -117,7 +117,7 @@ const Slick = () => {
             <Slider ref={sliderRef} className="slider flex gap-6" {...settings}>
             {otherMuseums.map((museum,index) => (
               <div className="card flex flex-col gap-2 max-w-full" key={index}>
-                <img src={museum.imageUrl} alt="Museum 1" className="card-img w-full h-auto" />
+                <img src={museum.imageUrl} alt="Museum 1" className="card-img w-full h-auto rounded-lg" />
                 <div className="card-body flex flex-col gap-2">
                   <div className="wrapper">
                     <h4 className="text-base md:text-lg font-semibold text-darkBlack mb-1.5">
@@ -127,7 +127,7 @@ const Slick = () => {
                       <img
                         src={IconLocation}
                         alt="Location Icon"
-                        className="w-[24px] h-[24px]"
+                        className="w-[24px] h-[24px] "
                       />
                       {museum.Location.map((location) => (
 

@@ -113,7 +113,7 @@ const Slick = () => {
               {otherPuppets.map((wayang, index) => (
                 <div
                   key={index.id}
-                  className="card rounded-lg overflow-hidden bg-white"
+                  className="card rounded-lg overflow-hidden bg-white shadow-md"
                 >
                   <img
                     src={wayang.imageUrl}

@@ -16,8 +16,15 @@ export default function Content() {
     fetch(`https://dewantara-api.vercel.app/api/v1/puppets?page=${page}&limit=8&search=${search}`)
       .then((response) => response.json())
       .then((data) => {
-        setWayangs(data.data || []);
-        setTotalPages(data.totalPages || 1);
+        const sortedWayangs = data.data.sort((a, b) => {
+          const nameA = a.name.toLowerCase();
+          const nameB = b.name.toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+        setWayangs(sortedWayangs || []);
+        setTotalPages(data.meta.totalPages || 1);
         setLoading(false);
       })
       .catch((error) => {
@@ -79,7 +86,7 @@ export default function Content() {
             ) : (
               <div className="content-card grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {wayangs.map((wayang, index) => (
-                  <div key={index} className="card rounded-lg overflow-hidden">
+                  <div key={index} className="card rounded-lg overflow-hidden shadow-md">
                     <img
                       src={wayang.imageUrl}
                       alt={wayang.name}
@@ -95,7 +102,7 @@ export default function Content() {
                         </span>
                       </div>
                       <button className="btn btn-icon">
-                      <Link to={`/wayang/${wayang.id}`}>
+                        <Link to={`/wayang/${wayang.id}`}>
                           <img src={IcArrow} alt="Detail" />
                         </Link>
                       </button>
@@ -120,8 +127,8 @@ export default function Content() {
                   {[...Array(totalPages).keys()].map((page) => (
                     <li className="pagination-item" key={page + 1}>
                       <button
-                        className={`pagination-link p-2 border rounded-md ${
-                          currentPage === page + 1 ? "bg-gray-300" : ""
+                        className={`pagination-link p-2 px-4 border rounded-md ${
+                          currentPage === page + 1 ? "btn btn-icon" : "text-gray-600"
                         }`}
                         onClick={() => handlePageChange(page + 1)}
                       >

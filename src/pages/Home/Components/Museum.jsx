@@ -1,5 +1,5 @@
 
-import IcArrow from "../../../assets/Icon/icon-arrow.svg";
+import IcArrow from "../../../assets/Icon/icon-arrow-brow.svg";
 import IconLocation from "../../../assets/Icon/icon-loc.png";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";

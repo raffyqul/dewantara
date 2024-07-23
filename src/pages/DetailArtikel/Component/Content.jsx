@@ -43,7 +43,7 @@ export default function Content() {
               {article.title}
             </h2>
             <span className="text-[#6C757D] text-base">
-              Ditulis pada {formatDate(article.createdAt)} | {article.timeAgo}
+              Ditulis pada {formatDate(article.createdAt)}
             </span>
           </div>
           <div className="content-bottom flex flex-col lg:flex-row justify-between gap-[25px]">

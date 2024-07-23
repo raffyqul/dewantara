@@ -6,14 +6,18 @@ export default function Content() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    fetch(`https://dewantara-api.vercel.app/api/v1/articles?limit=6&page=${currentPage}`)
+  const fetchArticles = (page) => {
+    fetch(`https://dewantara-api.vercel.app/api/v1/articles?limit=6&page=${page}`)
       .then((response) => response.json())
       .then((data) => {
         setArticles(data.data);
-        setTotalPages(data.totalPages); // assuming the API returns totalPages
+        setTotalPages(data.meta.totalPages);
       })
       .catch((error) => console.error("Error fetching data: ", error));
+  };
+
+  useEffect(() => {
+    fetchArticles(currentPage);
   }, [currentPage]);
 
   const truncateContent = (content, wordLimit) => {
@@ -22,6 +26,7 @@ export default function Content() {
   };
 
   const handlePageChange = (page) => {
+    if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
   };
 
@@ -77,8 +82,8 @@ export default function Content() {
                   {[...Array(totalPages).keys()].map((page) => (
                     <li className="pagination-item" key={page + 1}>
                       <button
-                        className={`pagination-link py-2 px-3 border rounded-md ${
-                          currentPage === page + 1 ? "bg-gray-300" : ""
+                        className={`pagination-link p-2 px-4 border rounded-md ${
+                          currentPage === page + 1 ? "btn btn-icon" : "text-gray-600"
                         }`}
                         onClick={() => handlePageChange(page + 1)}
                       >
@@ -105,4 +110,3 @@ export default function Content() {
     </section>
   );
 }
-  

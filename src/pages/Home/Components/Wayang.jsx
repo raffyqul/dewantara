@@ -1,6 +1,8 @@
 import IcArrow from "../../../assets/Icon/icon-arrow.svg";
 import IcSearch from "../../../assets/Icon/icon-search.svg";
 import React, { useState, useEffect } from "react";
+import IcScan from "../../../assets/Icon/icon-scan.svg";
+
 import { Link } from "react-router-dom";
 
 export default function Wayang() {
@@ -13,7 +15,14 @@ export default function Wayang() {
     fetch(`https://dewantara-api.vercel.app/api/v1/puppets?limit=8&search=${search}`)
       .then((response) => response.json())
       .then((data) => {
-        setWayangs(data.data || []);
+        const sortedWayangs = data.data.sort((a, b) => {
+          const nameA = a.name.toLowerCase();
+          const nameB = b.name.toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+        setWayangs(sortedWayangs || []);
         setLoading(false);
       })
       .catch((error) => {
@@ -62,6 +71,10 @@ export default function Wayang() {
                   </button>
                 </form>
               </div>
+              <button className="btn btn-scan flex items-center">
+                <img src={IcScan} alt="Scan" />
+                <span className="ml-2">Scan</span>
+              </button>
             </div>
             {loading ? (
               <div>Loading...</div>
@@ -70,12 +83,14 @@ export default function Wayang() {
             ) : (
               <div className="content-card grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {wayangs.map((wayang, index) => (
-                  <div key={index} className="card rounded-lg overflow-hidden">
-                    <img
+                  <div key={index} className="card rounded-lg overflow-hidden shadow-md	">
+                   <div className="h-96">
+                   <img
                       src={wayang.imageUrl}
                       alt={wayang.name}
-                      className="card-img w-full"
+                      className="card-img w-full h-full object-cover"
                     />
+                   </div>
                     <div className="card-body flex items-center justify-between pt-4 pb-6 px-6">
                       <div className="wrap">
                         <h4 className="text-base font-semibold text-darkBlack">

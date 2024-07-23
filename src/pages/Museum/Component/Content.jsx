@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import IcArrow from "../../../assets/Icon/icon-arrow.svg";
+import IcArrow from "../../../assets/Icon/icon-arrow-brow.svg";
 import IconLocation from "../../../assets/Icon/icon-loc.png";
 
 export default function Content() {
@@ -30,7 +30,7 @@ export default function Content() {
             <div className="content-card grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {museums.map((museum, index) => (
                 <div key={index} className="card flex flex-col gap-2">
-                  <img src={museum.imageUrl} alt="" className="card-img" />
+                  <img src={museum.imageUrl} alt="" className="card-img rounded-lg" />
                   <div className="card-body flex flex-col gap-2 p-4">
                     <div className="wrapper">
                       <h4 className="text-sm md:text-base font-semibold text-darkBlack mb-1.5">{museum.name}</h4>
