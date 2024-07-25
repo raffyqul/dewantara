@@ -58,7 +58,9 @@ export default function Content() {
                       </h4>
                       <div className="wrap flex items-center gap-2">
                         <span className="text-sm font-normal text-gray-600">
-                          {truncateContent(article.content, 12)}
+                        <div dangerouslySetInnerHTML={{ __html: truncateContent(article.content, 12) }} />
+
+                          {/* {truncateContent(article.content, 12)} */}
                         </span>
                       </div>
                     </div>
