@@ -86,7 +86,11 @@ export default function Wayang() {
   };
 
   const handleError = (error) => {
-    console.error(error);
+    if (error instanceof NotFoundException) {
+      console.warn('No QR code found.');
+    } else {
+      console.error('Error decoding QR code: ', error);
+    }
   };
 
   const openScanModal = () => {
