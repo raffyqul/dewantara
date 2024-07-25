@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import IcArrow from "../../../assets/Icon/icon-arrow.svg";
 import IcSearch from "../../../assets/Icon/icon-search.svg";
 import IcScan from "../../../assets/Icon/icon-scan.svg";
-import { BrowserMultiFormatReader } from '@zxing/library';
+import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
 
 export default function Wayang() {
   const [wayangs, setWayangs] = useState([]);
@@ -12,6 +12,8 @@ export default function Wayang() {
   const [isMobile, setIsMobile] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
   const [scanResult, setScanResult] = useState('');
+  const [videoInputDevices, setVideoInputDevices] = useState([]);
+  const [selectedDeviceId, setSelectedDeviceId] = useState(null);
   const videoRef = useRef(null);
   const [codeReader] = useState(new BrowserMultiFormatReader());
 
@@ -22,21 +24,32 @@ export default function Wayang() {
 
   useEffect(() => {
     if (isScanning && isMobile) {
-      codeReader.listVideoInputDevices().then((videoInputDevices) => {
-        if (videoInputDevices.length > 0) {
-          const firstDeviceId = videoInputDevices[0].deviceId;
-          codeReader.decodeFromVideoDevice(firstDeviceId, videoRef.current, (result, error) => {
-            if (result) {
-              handleScan(result);
-            }
-            if (error) {
-              handleError(error);
-            }
-          });
+      codeReader.listVideoInputDevices().then((devices) => {
+        setVideoInputDevices(devices);
+        if (devices.length > 0) {
+          setSelectedDeviceId(devices[0].deviceId);
         }
       });
     }
   }, [isScanning, isMobile, codeReader]);
+
+  useEffect(() => {
+    if (isScanning && isMobile && selectedDeviceId) {
+      codeReader.decodeFromVideoDevice(selectedDeviceId, videoRef.current, (result, error) => {
+        if (result) {
+          handleScan(result);
+        }
+        if (error && !(error instanceof NotFoundException)) {
+          handleError(error);
+        }
+      });
+    }
+    return () => {
+      if (isScanning && isMobile) {
+        codeReader.reset();
+      }
+    };
+  }, [isScanning, isMobile, selectedDeviceId, codeReader]);
 
   const fetchWayangs = (search = "") => {
     setLoading(true);
@@ -82,6 +95,9 @@ export default function Wayang() {
 
   const closeScanModal = () => {
     setIsScanning(false);
+    if (isMobile) {
+      codeReader.reset();
+    }
   };
 
   const handleFileUpload = (event) => {
@@ -95,6 +111,12 @@ export default function Wayang() {
       img.src = reader.result;
     };
     reader.readAsDataURL(file);
+  };
+
+  const switchCamera = () => {
+    const currentIndex = videoInputDevices.findIndex(device => device.deviceId === selectedDeviceId);
+    const nextIndex = (currentIndex + 1) % videoInputDevices.length;
+    setSelectedDeviceId(videoInputDevices[nextIndex].deviceId);
   };
 
   return (
@@ -181,7 +203,14 @@ export default function Wayang() {
               X
             </button>
             {isMobile ? (
-              <video ref={videoRef} style={{ width: '100%' }} />
+              <div>
+                <video ref={videoRef} style={{ width: '100%' }} />
+                {videoInputDevices.length > 1 && (
+                  <button className="btn btn-primary mt-2" onClick={switchCamera}>
+                    Switch Camera
+                  </button>
+                )}
+              </div>
             ) : (
               <div className="flex flex-col items-center">
                 <input
