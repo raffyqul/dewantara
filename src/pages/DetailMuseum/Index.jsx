@@ -36,7 +36,7 @@ const DetailMuseum = () => {
             ticket={museumData.Ticket}
           />
           <GridImage collection={museumData.Collection}/>
-          <Maps />
+          <Maps maps={museumData.Location}/>
           <Slick />
           <Footer />
         </>

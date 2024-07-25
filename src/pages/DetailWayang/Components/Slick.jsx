@@ -126,7 +126,7 @@ const Slick = () => {
                         {wayang.name}
                       </h4>
                       <span className="text-sm text-gray font-medium">
-                      {/* Wayang Kulit */}
+                        {wayang.type}
                       </span>
                     </div>
                     <button className="btn btn-icon">

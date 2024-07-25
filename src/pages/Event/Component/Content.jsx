@@ -46,7 +46,7 @@ export default function Content() {
                   <img
                     src={event.imageUrl}
                     alt=""
-                    className="card-img cursor-pointer"
+                    className="card-img cursor-pointer rounded-lg"
                     onClick={() => openModal(event.imageUrl)}
                   />
                   <div className="card-body flex flex-col gap-2">

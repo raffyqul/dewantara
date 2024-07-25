@@ -34,7 +34,8 @@ export default function Content() {
           </div>
           <div className="content-right flex flex-col gap-4">
             <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">Deskripsi Wayang</h2>
-            {puppet.description}
+            <div dangerouslySetInnerHTML={{ __html: puppet.description }} />
+
           </div>
         </div>
       </div>

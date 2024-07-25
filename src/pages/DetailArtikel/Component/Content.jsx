@@ -54,7 +54,7 @@ export default function Content() {
                 className="img w-full rounded-lg"
               />
               <p className="text-lightBlack text-base text-justify">
-                {article.content}
+                <div dangerouslySetInnerHTML={{ __html: article.content }} />
               </p>
             </div>
             <div className="content-bottom-right side-bar flex flex-col gap-[22px]">
@@ -69,7 +69,7 @@ export default function Content() {
                     </Link>
                     <div className="card-body">
                       <span className="text-base text-gray mb-2">
-                        {formatDate(otherArticle.createdAt)} | {otherArticle.timeAgo}
+                        {formatDate(otherArticle.createdAt)}
                       </span>
                       <h5 className="text-base font-semibold">
                         {otherArticle.title}

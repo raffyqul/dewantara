@@ -45,8 +45,8 @@ export default function Article() {
                         <span
                           className="text-sm font-normal"
                           style={{ color: "#6C757D" }}
+                          dangerouslySetInnerHTML={{ __html: truncateContent(article.content, 10) }}
                         >
-                          {truncateContent(article.content, 12)}
 
                         </span>
                       </div>
