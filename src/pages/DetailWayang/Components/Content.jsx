@@ -30,7 +30,7 @@ export default function Content() {
                 alt=""
                 className="img card-img max-w-full md:max-w-[384px] mb-6 rounded-xl py-[25px] px-[49px] shadow-[0_3px_16px_rgba(0,0,0,0.3)]"
               />
-              <p className="flex flex-col items-center -mt-4"><Link to='https://www.vectorstock.com/royalty-free-vectors/wayang-vectors'>sumber : arkyoswara</Link></p>
+              <p className="flex flex-col items-center -mt-4"><Link to='https://www.vectorstock.com/royalty-free-vectors/wayang-vectors'>Sumber gambar: Arykoswara</Link></p>
               <h2 className="flex flex-col items-center"> {puppet.name}</h2>
             </div>
           </div>
